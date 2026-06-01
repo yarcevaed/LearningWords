@@ -156,7 +156,7 @@
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🏠 Главная" Margin="3,0" Click="MenueButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🃏 Карточки" Margin="3,0" Click="CardsButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="📚 Мои словари" Margin="3,0" Click="DictionaryButton_Click"/>
-                <Button Style="{StaticResource MenuButtonStyle}" Content="📊 Статистика" Margin="3,0" Click="StatisticsButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🎯 Тесты" Margin="3,0" Click="TestButton_Click"/>
             </StackPanel>
         </Border>
 
