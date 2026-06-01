@@ -74,10 +74,8 @@ namespace LearningWords
         public void ApplySettingsToUI() //чтение
         {
             learned_words = _settings._learned_words;
-            save_words = _settings._save_words;
-            save_translation = _settings._save_translation;
-
         }
+
         //------MENUE BUTTONS------
 
         public CardsWindow OwnerCardsWindow {  get; set; }
@@ -96,12 +94,14 @@ namespace LearningWords
         {
             CardsWindow _card = new CardsWindow();
             _card.Show();
+            this.Close();
         }
 
         public void DictionaryButton_Click(object sender, RoutedEventArgs e)
         {
             DictionaryWindow _dictionary = new DictionaryWindow();
             _dictionary.Show();
+            this.Close();
         }
 
         public void StatisticsButton_Click(object sender, RoutedEventArgs e)
@@ -111,13 +111,12 @@ namespace LearningWords
 
         public void TestButton_Click(object sender, RoutedEventArgs e)
         {
-
+            TestWindow _test = new TestWindow();
+            _test.Show();
+            this.Close();
         }
 
-        public void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         //------DEFOULT BUTTONS------
 

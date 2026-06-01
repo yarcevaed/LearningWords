@@ -103,9 +103,7 @@
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🏠 Главная" Margin="3,0" Click="MenueButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🃏 Карточки" Margin="3,0" Click="CardsButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="📚 Мои словари" Margin="3,0" Click="DictionaryButton_Click"/>
-                <Button Style="{StaticResource MenuButtonStyle}" Content="📊 Статистика" Margin="3,0" Click="StatisticsButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🎯 Тесты" Margin="3,0" Click="TestButton_Click"/>
-                <Button Style="{StaticResource MenuButtonStyle}" Content="⚙️ Настройки" Margin="3,0" Click="SettingsButton_Click"/>
             </StackPanel>
         </Border>
 
@@ -194,7 +192,7 @@
                     </Grid>
                 </Border>-->
 
-                <!-- Блок: Тест (был "Быстрый тест") -->
+                <!-- Блок: Тест  -->
                 <Border Style="{StaticResource BlockCardStyle}" Width="240" Height="260" Margin="10">
                     <Border.Background>
                         <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">

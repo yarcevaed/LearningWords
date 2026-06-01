@@ -65,9 +65,8 @@
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🏠 Главная" Margin="3,0" Click="MenueButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🃏 Карточки" Margin="3,0" Click="CardsButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="📚 Мои словари" Margin="3,0" Click="DictionaryButton_Click"/>
-                <Button Style="{StaticResource MenuButtonStyle}" Content="📊 Статистика" Margin="3,0" Click="StatisticsButton_Click"/>
                 <Button Style="{StaticResource MenuButtonStyle}" Content="🎯 Тесты" Margin="3,0" Click="TestButton_Click"/>
-                <Button Style="{StaticResource MenuButtonStyle}" Content="⚙️ Настройки" Margin="3,0" Click="SettingsButton_Click"/>
+                
             </StackPanel>
         </Border>
 
@@ -78,27 +77,27 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-
-                    <!-- Левая панель "Words" -->
+            <!-- Левая панель "Words" -->
             <Border Grid.Column="0" Background="White" CornerRadius="12" Margin="0,0,10,0" Padding="15">
                 <DockPanel>
-                    <TextBlock  Text="📝 Words" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
-                    <TextBlock Name="TextBlockWords" Text="Здесь будут отображаться ваши слова" FontSize="13" Foreground="#FF6B7280" 
-                               TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Text="📝 Words" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <TextBlock Name="TextBlockWords" Text="Здесь будут отображаться ваши слова" FontSize="13" Foreground="#FF6B7280" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </ScrollViewer>
                 </DockPanel>
             </Border>
-
 
             <!-- Правая панель "Transletion" -->
             <Border Grid.Column="1" Background="White" CornerRadius="12" Margin="10,0,0,0" Padding="15">
                 <DockPanel>
-                    <TextBlock  Text="🌍 Translation" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
-                    <TextBlock Name="TextBlockTranslation" Text="Здесь будут отображаться переводы" FontSize="13" Foreground="#FF6B7280" 
-                               TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Left"/>
-                    
+                    <TextBlock Text="🌍 Translation" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <TextBlock Name="TextBlockTranslation" Text="Здесь будут отображаться переводы" FontSize="13" Foreground="#FF6B7280" 
+                                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    </ScrollViewer>
                 </DockPanel>
             </Border>
-
         </Grid>
     </Grid>
 </Window>

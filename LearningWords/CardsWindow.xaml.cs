@@ -153,6 +153,7 @@ namespace LearningWords
             MenueWindow _menue = new MenueWindow();
             _menue.OwnerCardsWindow = this;
             _menue.Show();
+            this.Close();
         }
 
         public void CardsButton_Click(object sender, RoutedEventArgs e)
@@ -165,6 +166,7 @@ namespace LearningWords
             DictionaryWindow _dictionary = new DictionaryWindow();
             _dictionary.OwnerCardsWindow = this;
             _dictionary.Show();
+            this.Close();
         }
 
         public void StatisticsButton_Click(object sender, RoutedEventArgs e)
@@ -174,13 +176,11 @@ namespace LearningWords
 
         public void TestButton_Click(object sender, RoutedEventArgs e)
         {
-
+            TestWindow _test = new TestWindow();
+            _test.Show(); 
+            this.Close();
         }
 
-        public void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
     }
 }

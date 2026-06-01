@@ -13,29 +13,34 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace LearningWords
 {
     /// <summary>
-    /// Логика взаимодействия для DictionaryWindow.xaml
+    /// Логика взаимодействия для TestWindow.xaml
     /// </summary>
-    public partial class DictionaryWindow : Window
+    public partial class TestWindow : Window
     {
-        // СОХРАНЕНИЕ (дура не удаляй, оно должно читать файл)
+        public void Her(object sender, RoutedEventArgs e) //Loaded, запускается автоматически вместе с окном
+        {
+            LearnedWords.Text = "⭐ " + true_answer.ToString() + " правильных ответов";
+        }
 
         private AppSetings _settings;
         private string _settingsFile = "settings.json";
-        public DictionaryWindow()
+        public TestWindow()
         {
             InitializeComponent();
             LoadSettings();
             ApplySettingsToUI();
         }
+
         public class AppSetings //то, что будет по дефолту
         {
-            public int _learned_words { get; set; } = 0;
+            public int _true_answer { get; set; } = 0;
 
             public List<string> _words { get; set; } = new List<string>
             {
@@ -75,40 +80,89 @@ namespace LearningWords
         }
         public void ApplySettingsToUI() //чтение
         {
-            learned_words = _settings._learned_words;
+            true_answer = _settings._true_answer;
             save_words = _settings._save_words;
             save_translation = _settings._save_translation;
 
         }
+        private void SaveSettings() //сохранение данных !!!ОБЯЗАТЕЛЬНО ВЫЗВАТЬ!!!
+        {
+            _settings._true_answer = true_answer;
+            string json = JsonSerializer.Serialize(_settings);
+            File.WriteAllText("settings.json", json);
+        }
+        //--------TEST--------
 
+        Random random = new Random();
+        int count;
+        int click = 0;
+
+        int true_answer = 0;
+        string translation;
+        bool check = true;
+        
+
+        private void Card_Click(object sender, RoutedEventArgs e)
+        {
+            if (save_words.Count == 0)
+            {
+                TestCard.Content = "Вы еще не выучили\nни одного слова :(";
+            }
+            else
+            {
+                string content = TestCard.Content.ToString();
+                if (check == true)
+                {
+                    count = random.Next(save_words.Count);
+                    ++click;
+                }
+                if (content == "Начать")
+                {
+                    TestCard.Style = (Style)FindResource("BlockButtonStyle");
+                    TestCard.Content = save_words[count];
+                    check = false;
+
+                }
+                else if (check == true)
+                {
+                    TestCard.Style = (Style)FindResource("BlockButtonStyle");
+                    TestCard.Content = save_words[count];
+                    check = false;
+
+                }
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            translation = TextBox_translation.Text;
+        }
+        private void a(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if ((translation.ToLower() == save_translation[count].ToLower()) && click != 0)
+                {
+                    ++true_answer;
+                    TestCard.Style = (Style)FindResource("BlockButtonStyleTrue");
+                    TestCard.Content = "True";
+                    SaveSettings();
+                }
+                else if ((translation.ToLower() != save_translation[count].ToLower()) && click != 0)
+                {
+                    TestCard.Style = (Style)FindResource("BlockButtonStyleFalse");
+                    TestCard.Content = "False";
+                }
+                check = true;
+            }
+        }
 
         //------MENUE BUTTONS------
 
         public CardsWindow OwnerCardsWindow { get; set; }
-        public int learned_words = CardsWindow.learned_words;
         public List<string> save_words = CardsWindow.save_words;
         public List<string> save_translation = CardsWindow.save_translation;
 
-        public void Her(object sender, RoutedEventArgs e)
-        {
-            LearnedWords.Text = "⭐ " + learned_words.ToString() + " слов выучено"; //Окошко со словами
-            //Сам словарь
-            for (int i = 0; i < save_words.Count; ++i)
-            {
-                if (TextBlockWords.Text != "Здесь будут отображаться ваши слова")
-                {
-                    TextBlockWords.Text = TextBlockWords.Text + (i + 1) + ". " + save_words[i] + "\n\n";
-                    TextBlockTranslation.Text = TextBlockTranslation.Text + (i + 1) + ". " + save_translation[i] + "\n\n";
-                }
-                if (TextBlockWords.Text == "Здесь будут отображаться ваши слова")
-                {
-                    TextBlockWords.Text = (i + 1) + ". " + save_words[i] + "\n\n";
-                    TextBlockTranslation.Text = (i + 1) + ". " + save_translation[i] + "\n\n";
-                }
-
-            }
-
-        }
         public void MenueButton_Click(object sender, RoutedEventArgs e)
         {
             MenueWindow _menue = new MenueWindow();
@@ -125,7 +179,9 @@ namespace LearningWords
 
         public void DictionaryButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DictionaryWindow _dictionary = new DictionaryWindow();
+            _dictionary.Show();
+            this.Close();
         }
 
         public void StatisticsButton_Click(object sender, RoutedEventArgs e)
@@ -139,6 +195,7 @@ namespace LearningWords
             _test.Show();
             this.Close();
         }
+
 
     }
 }
