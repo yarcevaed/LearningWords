@@ -19,6 +19,7 @@ namespace LearningWords
         }
         public class AppSetings //то, что будет по дефолту
         {
+            public int _true_answer { get; set; } = 0;
             public int _learned_words { get; set; } = 0;
 
             public List<string> _words { get; set; }  = new List<string>
@@ -59,6 +60,7 @@ namespace LearningWords
         }
         public void ApplySettingsToUI() //чтение
         {
+            true_answer = _settings._true_answer;
             learned_words = _settings._learned_words;
             words = _settings._words;
             translation = _settings._translation;
@@ -68,6 +70,7 @@ namespace LearningWords
         }
         private void SaveSettings() //сохранение данных !!!ОБЯЗАТЕЛЬНО ВЫЗВАТЬ!!!
         {
+            _settings._true_answer = true_answer;
             _settings._learned_words = learned_words;
             _settings._words = words;
             _settings._translation = translation;
@@ -86,13 +89,13 @@ namespace LearningWords
         //---------SHOW CARDS------------
 
         int click = 0;
-        List<string> words = new List<string>
+        public static List<string> words = new List<string>
         {
                 "Кошка", "Собака", "Яблоко", "Холодильник", "Гриб", "Арбуз", "Стул", "Клубника",
                 "Здание", "Клавиатура", "Знание", "Рыба", "Волосы", "Ключ", "Преступление", "Адвокат",
                 "Сосед", "Друг", "Будущее", "Голова", "Цвет"
         };
-        List<string> translation = new List<string>
+        public static List<string> translation = new List<string>
         {
                 "Cat", "Dog", "Apple", "Fridge", "Mushroom", "Watermelon", "Chair", "Strawberry",
                 "Building", "Keyboard", "Knowledge", "Fish", "Hair", "Key", "Crime", "Lawyer",
@@ -148,6 +151,8 @@ namespace LearningWords
         }
         //------MENUE BUTTONS------
 
+        public TestWindow OwnerTestWindow { get; set; }
+        public int true_answer = TestWindow.true_answer;
         public void MenueButton_Click(object sender, RoutedEventArgs e)
         {
             MenueWindow _menue = new MenueWindow();

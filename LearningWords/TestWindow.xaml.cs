@@ -26,7 +26,7 @@ namespace LearningWords
     {
         public void Her(object sender, RoutedEventArgs e) //Loaded, запускается автоматически вместе с окном
         {
-            LearnedWords.Text = "⭐ " + true_answer.ToString() + " правильных ответов";
+            TrueWords.Text = "⭐ " + true_answer.ToString() + " правильных ответов";
         }
 
         private AppSetings _settings;
@@ -41,6 +41,7 @@ namespace LearningWords
         public class AppSetings //то, что будет по дефолту
         {
             public int _true_answer { get; set; } = 0;
+            public int _learned_words { get; set; } = 0;
 
             public List<string> _words { get; set; } = new List<string>
             {
@@ -81,6 +82,9 @@ namespace LearningWords
         public void ApplySettingsToUI() //чтение
         {
             true_answer = _settings._true_answer;
+            learned_words = _settings._learned_words;
+            words = _settings._words;
+            translation = _settings._translation;
             save_words = _settings._save_words;
             save_translation = _settings._save_translation;
 
@@ -88,6 +92,11 @@ namespace LearningWords
         private void SaveSettings() //сохранение данных !!!ОБЯЗАТЕЛЬНО ВЫЗВАТЬ!!!
         {
             _settings._true_answer = true_answer;
+            _settings._learned_words = learned_words;
+            _settings._words = words;
+            _settings._translation = translation;
+            _settings._save_words = save_words;
+            _settings._save_translation = save_translation;
             string json = JsonSerializer.Serialize(_settings);
             File.WriteAllText("settings.json", json);
         }
@@ -97,8 +106,8 @@ namespace LearningWords
         int count;
         int click = 0;
 
-        int true_answer = 0;
-        string translation;
+        public static int true_answer = 0;
+        string translation_card;
         bool check = true;
         
 
@@ -135,20 +144,21 @@ namespace LearningWords
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            translation = TextBox_translation.Text;
+            translation_card = TextBox_translation.Text;
         }
         private void a(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if ((translation.ToLower() == save_translation[count].ToLower()) && click != 0)
+                if ((translation_card.ToLower() == save_translation[count].ToLower()) && click != 0)
                 {
                     ++true_answer;
                     TestCard.Style = (Style)FindResource("BlockButtonStyleTrue");
                     TestCard.Content = "True";
+                    TrueWords.Text = "⭐ " + true_answer.ToString() + " правильных ответов";
                     SaveSettings();
                 }
-                else if ((translation.ToLower() != save_translation[count].ToLower()) && click != 0)
+                else if ((translation_card.ToLower() != save_translation[count].ToLower()) && click != 0)
                 {
                     TestCard.Style = (Style)FindResource("BlockButtonStyleFalse");
                     TestCard.Content = "False";
@@ -162,6 +172,9 @@ namespace LearningWords
         public CardsWindow OwnerCardsWindow { get; set; }
         public List<string> save_words = CardsWindow.save_words;
         public List<string> save_translation = CardsWindow.save_translation;
+        public List<string> words = CardsWindow.words;
+        public List<string> translation = CardsWindow.translation;
+        public int learned_words = CardsWindow.learned_words;
 
         public void MenueButton_Click(object sender, RoutedEventArgs e)
         {
@@ -173,6 +186,7 @@ namespace LearningWords
         public void CardsButton_Click(object sender, RoutedEventArgs e)
         {
             CardsWindow _card = new CardsWindow();
+            _card.OwnerTestWindow = this;
             _card.Show();
             this.Close();
         }

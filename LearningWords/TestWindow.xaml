@@ -145,7 +145,7 @@
                 <!-- Только количество выученных слов -->
                 <Border Background="#FFD97706" CornerRadius="20" Padding="12,6" 
                         HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <TextBlock Name ="LearnedWords" Text="⭐ 0 правильных ответов" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
+                    <TextBlock Name ="TrueWords" Text="⭐ 0 правильных ответов" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
                 </Border>
             </Grid>
         </Border>
