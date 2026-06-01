@@ -1,0 +1,223 @@
+﻿<Window x:Class="LearningWords.MenueWindow"
+        WindowState="Maximized"
+        Loaded="Her"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearningWords"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1110" Width="800">
+    <Window.Resources>
+        <!-- Стиль для кнопок меню -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF4B5563"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFE5E7EB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Стиль для карточек блоков -->
+        <Style x:Key="BlockCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="0.08"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Стиль для кнопок внутри блоков -->
+        <Style x:Key="BlockButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#FF4F46E5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFF3F4F6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с заголовком -->
+        <Border Grid.Row="0" Background="White" CornerRadius="12" Padding="20,15" Margin="0,0,0,20">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="📖 Изучение слов" FontSize="24" FontWeight="Bold" Foreground="#FF1F2937"/>
+                    <TextBlock Text="Учите новые слова с помощью карточек" FontSize="13" Foreground="#FF6B7280" Margin="0,3,0,0"/>
+                </StackPanel>
+
+                <!-- Только количество выученных слов -->
+                <Border Background="#FF10B981" CornerRadius="20" Padding="12,6" 
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Name ="LearnedWords"  Text="⭐ 0 слов выучено" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Меню навигации (настройки и тесты поменяны местами) -->
+        <Border Grid.Row="1" Background="White" CornerRadius="12" Padding="8" Margin="0,0,0,25">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🏠 Главная" Margin="3,0" Click="MenueButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🃏 Карточки" Margin="3,0" Click="CardsButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="📚 Мои словари" Margin="3,0" Click="DictionaryButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="📊 Статистика" Margin="3,0" Click="StatisticsButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🎯 Тесты" Margin="3,0" Click="TestButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="⚙️ Настройки" Margin="3,0" Click="SettingsButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Основная область с 4 блоками по центру -->
+        <Grid Grid.Row="2" Margin="0,0,0,-12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Первый ряд: Карточки -->
+            <Grid Grid.Row="0" HorizontalAlignment="Center" Margin="0,20,0,20">
+                <Border Style="{StaticResource BlockCardStyle}" Width="350" Height="280">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="#FF6366F1" Offset="0"/>
+                            <GradientStop Color="#FF8B5CF6" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="25">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="🃏" FontSize="48" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Text="Карточки" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,15,0,8"/>
+                        <TextBlock Grid.Row="2" Text="Изучайте новые слова с помощью  карточек!" FontSize="14" Foreground="#FFE0E7FF" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+                        <Button Grid.Row="3" Style="{StaticResource BlockButtonStyle}" Content="Начать учить →" 
+                                Foreground="#FF6366F1" FontSize="14" Padding="16,10" Click="Cards_Click"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Второй ряд: Мой словарь, Повторение, Тест -->
+            <WrapPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,10,0,0">
+
+                <!-- Блок: Мой словарь -->
+                <Border Style="{StaticResource BlockCardStyle}" Width="240" Height="260" Margin="10">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="#FF06B6D4" Offset="0"/>
+                            <GradientStop Color="#FF0891B2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="📚" FontSize="40" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Text="Мой словарь" FontSize="20" FontWeight="Bold" Foreground="White" Margin="0,12,0,5"/>
+
+                        <Button Grid.Row="3" Style="{StaticResource BlockButtonStyle}" Content="Открыть →" 
+                                Foreground="#FF06B6D4" FontSize="13" Click="Dictionary_Click"/>
+                    </Grid>
+                </Border>
+
+                <!-- Блок: Повторение --><!--
+                <Border Style="{StaticResource BlockCardStyle}" Width="240" Height="260" Margin="10">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="#FF10B981" Offset="0"/>
+                            <GradientStop Color="#FF059669" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="🔄" FontSize="40" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Text="Повторение" FontSize="20" FontWeight="Bold" Foreground="White" Margin="0,12,0,5"/>
+
+                        <Button Grid.Row="3" Style="{StaticResource BlockButtonStyle}" Content="Повторить →" 
+                                Foreground="#FF10B981" FontSize="13" Click="Repetition_Click"/>
+                    </Grid>
+                </Border>-->
+
+                <!-- Блок: Тест (был "Быстрый тест") -->
+                <Border Style="{StaticResource BlockCardStyle}" Width="240" Height="260" Margin="10">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="#FFF59E0B" Offset="0"/>
+                            <GradientStop Color="#FFD97706" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="📝" FontSize="40" Foreground="White"/>
+                        <TextBlock Grid.Row="1" Text="Тест" FontSize="20" FontWeight="Bold" Foreground="White" Margin="0,12,0,5"/>
+                        <Button Grid.Row="3" Style="{StaticResource BlockButtonStyle}" Content="Начать →" 
+                                Foreground="#FFF59E0B" FontSize="13" Click="Test_Click"/>
+                    </Grid>
+                </Border>
+
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,104 @@
+﻿<Window x:Class="LearningWords.DictionaryWindow"
+        Loaded="Her"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearningWords"
+        mc:Ignorable="d"
+        Title="DictionaryWindow" 
+        WindowState="Maximized"
+        Height="450" Width="800">
+    <Window.Resources>
+        <!-- Стиль для кнопок меню -->
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#FF4B5563"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                         CornerRadius="6"
+                         Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFE5E7EB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с заголовком -->
+        <Border Grid.Row="0" Background="White" CornerRadius="12" Padding="20,15" Margin="0,0,0,20">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="📖 Изучение слов" FontSize="24" FontWeight="Bold" Foreground="#FF1F2937"/>
+                    <TextBlock Text="Учите новые слова с помощью карточек" FontSize="13" Foreground="#FF6B7280" Margin="0,3,0,0"/>
+                </StackPanel>
+
+                <!-- Только количество выученных слов -->
+                <Border Background="#FF10B981" CornerRadius="20" Padding="12,6" 
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock Name ="LearnedWords" Text="⭐ 0 слов выучено" FontSize="13" Foreground="White" FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Меню навигации (настройки и тесты поменяны местами) -->
+        <Border Grid.Row="1" Background="White" CornerRadius="12" Padding="8" Margin="0,0,0,25">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🏠 Главная" Margin="3,0" Click="MenueButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🃏 Карточки" Margin="3,0" Click="CardsButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="📚 Мои словари" Margin="3,0" Click="DictionaryButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="📊 Статистика" Margin="3,0" Click="StatisticsButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="🎯 Тесты" Margin="3,0" Click="TestButton_Click"/>
+                <Button Style="{StaticResource MenuButtonStyle}" Content="⚙️ Настройки" Margin="3,0" Click="SettingsButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Два блока: Words и Transletion, растягиваются по ширине и высоте -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+
+                    <!-- Левая панель "Words" -->
+            <Border Grid.Column="0" Background="White" CornerRadius="12" Margin="0,0,10,0" Padding="15">
+                <DockPanel>
+                    <TextBlock  Text="📝 Words" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
+                    <TextBlock Name="TextBlockWords" Text="Здесь будут отображаться ваши слова" FontSize="13" Foreground="#FF6B7280" 
+                               TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </DockPanel>
+            </Border>
+
+
+            <!-- Правая панель "Transletion" -->
+            <Border Grid.Column="1" Background="White" CornerRadius="12" Margin="10,0,0,0" Padding="15">
+                <DockPanel>
+                    <TextBlock  Text="🌍 Translation" FontSize="18" FontWeight="Bold" Foreground="#FF1F2937" DockPanel.Dock="Top" Margin="0,0,0,12"/>
+                    <TextBlock Name="TextBlockTranslation" Text="Здесь будут отображаться переводы" FontSize="13" Foreground="#FF6B7280" 
+                               TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Left"/>
+                    
+                </DockPanel>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>
