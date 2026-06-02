@@ -11,7 +11,7 @@ namespace LearningWords
         //жалкая пародия на сохранение
         private AppSetings _settings;
         private string _settingsFile = "settings.json";
-        public CardsWindow() //здесь каша-мала: и сейв, и прочая хуета
+        public CardsWindow() 
         {
             InitializeComponent();
             LoadSettings();
@@ -45,7 +45,7 @@ namespace LearningWords
             };
 
         }
-        private void LoadSettings() //непонятная хуета, но нужная
+        private void LoadSettings() 
         {
             if (File.Exists(_settingsFile))
             {

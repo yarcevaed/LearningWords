@@ -58,7 +58,7 @@ namespace LearningWords
             };
 
         }
-        private void LoadSettings() //непонятная хуета, но нужная
+        private void LoadSettings() 
         {
             if (File.Exists(_settingsFile))
             {
